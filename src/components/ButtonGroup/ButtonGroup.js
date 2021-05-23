@@ -9,7 +9,7 @@ const ButtonGroup = () => {
     <div>
       {
         Object.keys(FILTERS_FUNC).map(func => {
-          return <Button label={FILTERS_FUNC[func]} selected={filter === FILTERS_FUNC[func]} handleState={() => setFilter(FILTERS_FUNC[func])} />;
+          return <Button key={func} label={FILTERS_FUNC[func]} selected={filter === FILTERS_FUNC[func]} handleState={() => setFilter(FILTERS_FUNC[func])} />;
         })
       }
       

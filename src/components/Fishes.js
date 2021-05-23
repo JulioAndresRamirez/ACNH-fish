@@ -3,12 +3,11 @@ import moment from 'moment'
 import { Container } from './Layout'
 import Fish from './Fish/Fish'
 import FishesData from '../utils/database/fishes_data'
-import { FILTERS_FUNC } from '../utils'
 import { hemisphere, filters } from '../services/Recoil'
 
 function Fishes() {
-  const [hemisphereValue, setHemisphere] = useRecoilState(hemisphere)
-  const [filtersValue, setFilter] = useRecoilState(filters);
+  const [hemisphereValue] = useRecoilState(hemisphere)
+  const [filtersValue] = useRecoilState(filters);
 
 
   const formatSchedule = (data) => {
