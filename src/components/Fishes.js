@@ -1,6 +1,6 @@
 import { useRecoilState } from 'recoil'
 import moment from 'moment'
-import { Container } from './Layout'
+import { Container, Block } from './Layout'
 import Fish from './Fish/Fish'
 import FishesData from '../utils/database/fishes_data'
 import { hemisphere, filters } from '../services/Recoil'
@@ -11,14 +11,14 @@ function Fishes() {
 
 
   const formatSchedule = (data) => {
-    let result = 'Error';
+    let result;
 
     if (data.length === 0) {
       result = 'All day'
     } else {
       let firstVal = data[0];
       let secondVal = data[data.length - 1];
-      
+
       if (firstVal > secondVal) {
         result = `${firstVal}pm - ${secondVal}am`;
       } else {
@@ -28,7 +28,7 @@ function Fishes() {
 
     return result
   }
-  
+
   const formatSeasons = (data) => {
     if (Object.keys(data).length === 0) {
       return 'All year';
@@ -46,7 +46,7 @@ function Fishes() {
 
     return result;
   };
-  
+
   const isInWater = (season, schedule) => {
     if (Object.keys(season).length === 0 && schedule.length === 0) {
       return true;
@@ -67,7 +67,7 @@ function Fishes() {
         }
       });
     }
-    
+
     if (isSeasonal) {
       if (schedule.length === 0) {
         result = true;
@@ -75,7 +75,7 @@ function Fishes() {
         schedule.includes(+currentHour) ? (result = true) : (result = false);
       }
     }
-    
+
     return result;
   }
 
@@ -88,7 +88,7 @@ function Fishes() {
 
     if (filtersValue === 'This month') {
       let currentMonth = moment().format('M');
-      
+
       return FishesData.filter((fish) => {
         let value = false;
         let fishSeason = fish.seasons[hemisphereValue];
@@ -120,27 +120,32 @@ function Fishes() {
   }
 
   return (
-    <Container>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-2 justify-items-center">
-        {renderFishes().map((fish) => {
-          return (
-            <Fish
-              key={fish.id}
-              inWater={isInWater(fish.seasons, fish.schedule)}
-              id={fish.id}
-              name={fish.name}
-              price={fish.price}
-              location={fish.location}
-              shadow={fish.shadow}
-              schedule={formatSchedule(fish.schedule)}
-              seasons={formatSeasons(fish.seasons)}
-            />
-          );
-        })}
-
-        {renderFishes().length === 0 ? 'Nada que mostrar' : ''}
-      </div>
-    </Container>
+    <>
+      <Container>
+        {renderFishes().length === 0 ?
+            <Block>
+              <p>Nothing to show</p>
+            </Block>
+            :
+            <div className="grid grid-cols-1 gap-2 justify-items-center md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+              {renderFishes().map((fish) => {
+                return (
+                    <Fish
+                        key={fish.id}
+                        inWater={isInWater(fish.seasons, fish.schedule)}
+                        id={fish.id}
+                        name={fish.name}
+                        price={fish.price}
+                        location={fish.location}
+                        shadow={fish.shadow}
+                        schedule={formatSchedule(fish.schedule)}
+                        seasons={formatSeasons(fish.seasons)}
+                    />
+                );
+              })}
+            </div>}
+      </Container>
+    </>
   );
 }
 

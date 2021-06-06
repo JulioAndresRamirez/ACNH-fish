@@ -42,7 +42,9 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      backgroundClip: ['hover']
+    },
   },
   plugins: [],
 }

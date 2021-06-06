@@ -30,7 +30,11 @@ const Fish = ({
           <img src={`${urlFishImage}${id}.png`} alt={name} />
         </div>
         <div className="flagtags">
-          <div className="greenflag inline-block -mr-3 rounded-full w-4 h-4 bg-fish-accent-green self-center shadow border-2 border-solid border-white" />
+          { inWater ?
+              <div className="greenflag inline-block -mr-3 rounded-full w-4 h-4 bg-fish-accent-green self-center shadow border-2 border-solid border-white" />
+              :
+              ''
+          }
         </div>
       </div>
 

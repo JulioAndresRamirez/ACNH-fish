@@ -1,10 +1,9 @@
-/* eslint-disable no-unused-vars */
 import React from 'react'
 //Components
-import Header from './Header/Header'
-import Actions from './Actions'
-import Fishes from './Fishes'
-import Footer from './Footer/Footer'
+import Header from './components/Header/Header'
+import Actions from './components/Actions'
+import Fishes from './components/Fishes'
+//import Footer from './components/Footer/Footer'
 //Global State
 import { RecoilRoot } from 'recoil';
 
@@ -14,7 +13,7 @@ function App() {
       <Header/>
       <Actions/>
       <Fishes />
-      <Footer />
+      {/*<Footer />*/}
     </RecoilRoot>
   )
 }
